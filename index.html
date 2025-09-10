@@ -9,29 +9,24 @@
 <body>
   <div class="header">PDF to JPEG Converter</div>
 
-  <div class="card" role="region" aria-label="PDF to JPEG converter">
+  <div class="card">
     <div class="card-body">
       <div class="row">
         <label for="pdfFile">Upload PDF</label>
         <input type="file" id="pdfFile" accept="application/pdf">
       </div>
       <button id="convertBtn" class="btn">Convert to JPEG</button>
-      <div id="result" class="result">
-        Upload a PDF and click Convert to see JPEG images here.
-      </div>
-      <div class="meta">
-        Tip: Each page of the PDF will be converted to a separate JPEG image with download buttons.
-      </div>
+      <div id="result" class="result">Upload a PDF and click Convert.</div>
 
       <h4 class="h4-style">About This Tool</h4>
       <p class="justify-p">
-        This PDF to JPEG converter allows you to quickly convert all pages of a PDF document into high-quality JPEG images, right from your browser.
+        This tool converts each PDF page to a JPEG image directly in your browser.
       </p>
       <p class="justify-p">
-        The conversion happens locally on your device, ensuring that your PDF content remains private and secure without being uploaded to any server.
+        The conversion happens locally; your PDF never leaves your device.
       </p>
       <p class="justify-p">
-        Each page of the PDF is rendered as a separate image, and download links are provided for easy saving. You can reset and convert another PDF anytime.
+        Each page gets a separate image and download link.
       </p>
     </div>
   </div>
@@ -43,7 +38,7 @@
   <!-- PDF.js library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.min.js"></script>
   <script>
-    // Set PDF.js worker path
+    // Set the workerSrc before using PDF.js
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.worker.min.js';
   </script>
   <script src="script.js"></script>
