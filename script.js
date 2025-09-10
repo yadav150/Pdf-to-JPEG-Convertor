@@ -1,4 +1,4 @@
-// Ensure PDF.js worker is set
+// PDF.js worker (HTTPS, works on GitHub Pages)
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.12.313/pdf.worker.min.js';
 
@@ -56,6 +56,7 @@ convertBtn.addEventListener('click', async () => {
     };
   } catch (err) {
     console.error(err);
-    result.textContent = '⚠ Error processing PDF. Use a standard PDF and open via Live Server.';
+    result.textContent =
+      '⚠ Error processing PDF. Make sure it is a standard, non-encrypted PDF.';
   }
 });
