@@ -4,16 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const result = document.getElementById('result');
 
   btn.addEventListener('click', async () => {
-    if (btn.dataset.mode === 'reset') {
-      resetAll();
-      return;
-    }
-
-    if (!pdfInput.files[0]) {
-      result.textContent = '⚠ Please select a PDF file.';
-      return;
-    }
-
+    if (btn.dataset.mode === 'reset') return resetAll();
+    if (!pdfInput.files[0]) return result.textContent = '⚠ Please select a PDF file.';
     await convertPDF(pdfInput.files[0]);
   });
 
@@ -22,12 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const arrayBuffer = await file.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
       result.innerHTML = '';
 
-      for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-        const page = await pdf.getPage(pageNum);
+      for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+        const page = await pdfDoc.getPage(pageNum);
         const viewport = page.getViewport({ scale: 2 });
+
         const canvas = document.createElement('canvas');
         canvas.width = viewport.width;
         canvas.height = viewport.height;
@@ -50,13 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) {
       console.error(err);
-      result.textContent = '⚠ Error processing PDF.';
+      result.textContent = '⚠ Error processing PDF. Make sure you run this on a server (Live Server).';
     }
   }
 
   function resetAll() {
     pdfInput.value = '';
-    result.textContent = 'Upload a PDF and click Convert to see JPEG images here.';
+    result.textContent = 'Upload a PDF and click Convert.';
     btn.textContent = 'Convert to JPEG';
     btn.classList.remove('reset');
     delete btn.dataset.mode;
